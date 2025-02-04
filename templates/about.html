@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <link rel="stylesheet" href="/frontend/css/about.css">
+</head>
+<body>
+
+    <h1 class="glow">About Groupie Tracker</h1>
+
+    <div class="about-card">
+        <p>
+            Groupie Tracker is an application that helps you explore artists, their concerts, and more. 
+            Created with ❤️ by <b>Ttarara</b>, <b>Sntentop</b>, and <b>Sbusho</b>!
+        </p>
+    </div>
+
+    <!-- Back Button -->
+    <div class="button-container">
+        <a href="/" class="btn">Go Home</a>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; <span id="year"></span> Created by Ttarara && Sntentop && Sbusho 🔥💙🎶</p>
+    </footer>
+
+    <script>
+        document.getElementById("year").innerText = new Date().getFullYear();
+    </script>
+
+</body>
+</html>
