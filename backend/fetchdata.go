@@ -7,38 +7,46 @@ import (
 	"time"
 )
 
-// Fetch artist asynchronously
-func fetchArtist(apiURL string) (Artist, error) {
-	var artist Artist
-	resp, err := http.Get(apiURL)
-	if err != nil {
-		return artist, err
-	}
-	defer resp.Body.Close()
+// helper function making an HTTP request, decoding JSON, handling timeouts
+func fetchData[T any](apiURL string) (T, error) {
+	var data T
+	dataChan := make(chan T)
+	errorChan := make(chan error)
 
-	err = json.NewDecoder(resp.Body).Decode(&artist)
-	if err != nil {
-		return artist, err
+	go func() {
+		resp, err := http.Get(apiURL)
+		if err != nil {
+			errorChan <- err
+			return
+		}
+		defer resp.Body.Close()
+
+		err = json.NewDecoder(resp.Body).Decode(&data)
+		if err != nil {
+			errorChan <- err
+			return
+		}
+		dataChan <- data
+	}()
+
+	select {
+	case data := <-dataChan:
+		return data, nil
+	case err := <-errorChan:
+		return data, err
+	case <-time.After(5 * time.Second):
+		return data, fmt.Errorf("API request timed out")
 	}
-	return artist, nil
+}
+
+// Fetch artist data from given API URL
+func fetchArtist(apiURL string) (Artist, error) {
+	return fetchData[Artist](apiURL)
 }
 
 // Concurrently fetch multiple artists
 func FetchArtists(apiURL string) (Artists, error) {
-	var artists Artists
-	client := http.Client{Timeout: 5 * time.Second} // Προσθήκη timeout για ασφάλεια
-	resp, err := client.Get(apiURL)
-	if err != nil {
-		return artists, err
-	}
-	defer resp.Body.Close()
-
-	err = json.NewDecoder(resp.Body).Decode(&artists)
-	if err != nil {
-		return artists, fmt.Errorf("Error decoding API response: %v", err)
-	}
-
-	return artists, nil
+	return fetchData[Artists](apiURL)
 }
 
 // Concurrently fetch relations, locations, and concert dates

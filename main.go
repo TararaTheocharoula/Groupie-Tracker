@@ -34,6 +34,11 @@ func logHistory(message string) {
 }
 
 func main() {
+	if len(os.Args) != 1 {
+		fmt.Fprintln(os.Stderr, "check args!!!")
+		return
+	}
+
 	fmt.Println("Server running at: http://localhost:8080/")
 
 	startTime := time.Now()
@@ -61,7 +66,7 @@ func main() {
 			return
 		}
 
-		tmpl.Execute(w, artists) // Στέλνουμε τα δεδομένα στη σελίδα
+		tmpl.Execute(w, artists) // Send data to the page
 	})
 
 	// Serve about.html at "/about"
