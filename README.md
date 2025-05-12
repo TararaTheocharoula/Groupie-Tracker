@@ -1,93 +1,62 @@
-# groupie-tracker
+# 🗺️ Groupie Tracker Geolocalization
 
-Groupie Tracker is a web application built in Go that fetches and displays information about various artists, their concert locations and dates. This project aims to provide an interactive and user-friendly experience using client-server communication and data visualizations.
+A geolocation enhancement for the Groupie Tracker project that maps concert locations of selected artists or bands using geographic coordinates.  
+Developed in Go using only standard libraries.
 
-## Features
-- Fetch and display artist details (name, image, members, first album, etc.)
-- Display concert locations and dates
-- Interactive UI using HTML and CSS
-- Handles client-server interactions via API requests
-- Implements an event-driven system (e.g., user-triggered actions)
-- Error handling to prevent crashes and ensure smooth user experience
-- Unit tests for core functionalities
+---
 
+## 🧭 Project Overview
 
-## Installation
+This project expands the **Groupie Tracker** by integrating geolocation functionality. It takes concert addresses (e.g., "Germany, Mainz") and converts them into geographic coordinates (e.g., `49.59380, 8.15052`) to place markers on a map. The goal is to visualize all concert locations for an artist/band retrieved from the existing API.
 
-**Clone the repository:**
-```bash
-git clone https://platform.zone01.gr/git/ttarara/groupie-tracker
-```
-**Navigate to the project directory:**
-```bash
-cd groupie-tracker
-```
-**Run the Server:**
-```bash
-go run . 
-```
-The server will start on http://localhost:8080/.
+---
 
-## Usage
+## 🔑 Key Features
 
-1. Browse through different artists, their concert dates, and locations.
+**Geocoding Integration:**
 
-2. Click on specific elements (e.g., artist cards) to trigger actions like displaying detailed information.
+Translates concert locations into latitude/longitude using the Google Maps API.
 
-3. Experience the event-driven system by interacting with UI elements.
+Handles address formatting variations (e.g., "Paris-France" → "Paris, France").
 
+**Interactive Map:**
 
-### **Deployment**:
-The project is deployed on cloud platforms:
+Displays markers for all tour locations of a selected artist.
 
--   Railway.
+**Seamless Integration:**
 
-     https://groupie-tracker-production-60e6.up.railway.app/
+Works alongside existing Groupie Tracker features (search, filters, artist profiles).
 
-- Render:
+Zero external dependencies—pure Go standard library.
 
-    https://test1-m7di.onrender.com/
+**Error Resilience:**
 
+Gracefully handles API failures, invalid locations, and edge cases.
 
-**API Structure**:
-The project fetches data from a given API, which consists of four endpoints:
+## 🛫 Usage
 
-- /artists → Fetches artist details
-- /locations → Fetches artist locations
-- /dates → Fetches concert dates
-- /relation → Links the above data
+1. Clone the repository:
 
-Each artist has a unique ID, and data is displayed dynamically on the frontend.
+   ```bash
+   git clone https://platform.zone01.gr/git/ttarara/groupie-tracker-geolocalization
 
-**Event System**:
-The project implements client-server interactions triggered by events, such as:
+   cd groupie-tracker-geolocalization
 
-- Clicking an artist’s name fetches additional details dynamically.
-- Searching for a band filters results in real-time.
-- A form submission sends data to the server for processing.
+   go run .
 
-Asynchronous Go routines and channels ensure smooth execution.
+   ```
 
-**Testing**:
-Unit tests ensure the reliability of core functionalities.
-
-Run tests with:
-```bash
-go test
-```
-or 
-```bash
-go test -v
-```
+ Access the app at http://localhost:8080.
 
 
-## Authors
-   
-    Theocharoula Tarara 🎵
+---
 
-    🎵 Stefanos Ntentopoulos
+## ✍️ Authors
 
-    Sofia Busho 🎵
+Theocharoula Tarara 🎵
 
+🎵 Sofia Busho
 
-## 💃  Enjoy exploring the world of music with Groupie Tracker! 🕺
+---
+
+## 💃 Enjoy exploring the world of music with Groupie Tracker! 🕺
